@@ -69,6 +69,10 @@ export default function InputContainer() {
             if (getFirstUnknownCard() === hand.length) {
                 setSelectedSpot(5);
             }
+
+            if (!cardSelectorActive) {
+                setSelectedSpot(-1);
+            }
         }
     };
 
