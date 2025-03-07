@@ -60,10 +60,21 @@ export default function InputContainer() {
         if (players === 2) {
             setPlayers(3);
             removeLastCard();
+            if (getFirstUnknownCard() === hand.length - 1) {
+                setSelectedSpot(0);
+            }
         } else {
             setPlayers(2);
             addCard();
+            if (getFirstUnknownCard() === hand.length) {
+                setSelectedSpot(5);
+            }
         }
+    };
+
+    const closeCardSelector = () => {
+        setCardSelectorActive(false);
+        setSelectedSpot(-1);
     };
 
     function removeLastCard() {
@@ -135,7 +146,7 @@ export default function InputContainer() {
         <View>
             {cardSelectorActive && (
                 <TouchableOpacity
-                    onPress={() => setCardSelectorActive(false)}
+                    onPress={closeCardSelector}
                     style={inputContainerStyles.modalContainer}
                     activeOpacity={1}
                 >
