@@ -29,4 +29,9 @@ export const handCardStyles = StyleSheet.create({
         borderWidth: 3,
         borderColor: colors.toggleActive,
     },
+    emptyCard: {
+        fontSize: 40,
+        fontWeight: "bold",
+        color: colors.grey,
+    },
 });

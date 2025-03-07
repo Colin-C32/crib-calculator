@@ -1,6 +1,7 @@
 import { View, Text, Pressable } from "react-native";
 import { handCardStyles } from "@/styles/handCardStyles";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import React from "react";
 
 type Props = {
     rank?: string;
@@ -25,33 +26,47 @@ export default function HandCard(props: Props) {
         }
     }
 
-    return (
-        <Pressable
-            style={[
-                handCardStyles.cardContainer,
-                props.selected ? handCardStyles.highlight : null,
-            ]}
-            onPress={props.onPress}
-        >
-            <MaterialCommunityIcons
-                name={getSuitIcon()}
+    if (props?.rank === undefined) {
+        return (
+            <Pressable
                 style={[
-                    handCardStyles.suitIcon,
-                    props.color === "red"
-                        ? handCardStyles.redCard
-                        : handCardStyles.blackCard,
+                    handCardStyles.cardContainer,
+                    props.selected ? handCardStyles.highlight : null,
                 ]}
-            />
-            <Text
-                style={[
-                    handCardStyles.rankStyle,
-                    props.color === "red"
-                        ? handCardStyles.redCard
-                        : handCardStyles.blackCard,
-                ]}
+                onPress={props.onPress}
             >
-                {props.rank}
-            </Text>
-        </Pressable>
-    );
+                <Text style={handCardStyles.emptyCard}>?</Text>
+            </Pressable>
+        );
+    } else {
+        return (
+            <Pressable
+                style={[
+                    handCardStyles.cardContainer,
+                    props.selected ? handCardStyles.highlight : null,
+                ]}
+                onPress={props.onPress}
+            >
+                <MaterialCommunityIcons
+                    name={getSuitIcon()}
+                    style={[
+                        handCardStyles.suitIcon,
+                        props.color === "red"
+                            ? handCardStyles.redCard
+                            : handCardStyles.blackCard,
+                    ]}
+                />
+                <Text
+                    style={[
+                        handCardStyles.rankStyle,
+                        props.color === "red"
+                            ? handCardStyles.redCard
+                            : handCardStyles.blackCard,
+                    ]}
+                >
+                    {props.rank}
+                </Text>
+            </Pressable>
+        );
+    }
 }
