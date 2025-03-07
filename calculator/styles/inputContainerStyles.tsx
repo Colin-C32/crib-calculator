@@ -12,11 +12,12 @@ export const inputContainerStyles = StyleSheet.create({
     },
     modalContainer: {
         position: "absolute",
-        bottom: viewportHeight * 0.3 - 30,
+        bottom: viewportHeight * 0.28 - 30,
         alignItems: "center",
-        height: viewportHeight * 0.7,
+        height: viewportHeight * 0.72,
         paddingTop: viewportHeight * 0.49,
         zIndex: 10,
+        backgroundColor: colors.transparentBackground,
     },
     selectorCardContainer: {
         flexDirection: "row",

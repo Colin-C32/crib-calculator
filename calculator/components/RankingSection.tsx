@@ -1,6 +1,7 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { useState } from "react";
+import { View, Text, ScrollView } from "react-native";
 import { rankingsStyles } from "@/styles/rankingsStyles";
+import Option from "./Option";
 
 type Card = {
     rank?: string;
@@ -21,12 +22,18 @@ type Hand = {
 
 type Props = {
     title: string;
-    hands?: Card[];
 };
 export default function RankingSection(props: Props) {
+    const [hands, setHands] = useState<Hand[]>(Array.from({ length: 1 }));
+
     return (
         <View style={rankingsStyles.rankingSectionContainer}>
             <Text style={rankingsStyles.rankingTitle}>{props.title}</Text>
+            <ScrollView>
+                {hands.map((hand, index) => (
+                    <Option key={index} hand={hand} />
+                ))}
+            </ScrollView>
         </View>
     );
 }

@@ -10,7 +10,7 @@ export const colors = {
     black: "#221F1F",
     white: "#fff",
     grey: "#979797",
-    transparentBackground: "rgba(255, 255, 255, 0.14)",
+    transparentBackground: "rgba(34, 31, 31, 0.73)",
     yellow: "#ffe431",
 };
 

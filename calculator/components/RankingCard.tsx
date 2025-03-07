@@ -1,5 +1,5 @@
-import { Text, Pressable } from "react-native";
-import { handCardStyles } from "@/styles/handCardStyles";
+import { View, Text, Pressable } from "react-native";
+import { rankingsStyles } from "@/styles/rankingsStyles";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import React from "react";
 
@@ -10,7 +10,7 @@ type Props = {
     selected?: boolean;
     onPress?: () => void;
 };
-export default function HandCard(props: Props) {
+export default function RankingCard(props: Props) {
     function getSuitIcon() {
         switch (props.suit) {
             case "H":
@@ -30,38 +30,38 @@ export default function HandCard(props: Props) {
         return (
             <Pressable
                 style={[
-                    handCardStyles.cardContainer,
-                    props.selected ? handCardStyles.highlight : null,
+                    rankingsStyles.cardContainer,
+                    props.selected ? rankingsStyles.highlight : null,
                 ]}
                 onPress={props.onPress}
             >
-                <Text style={handCardStyles.emptyCard}>?</Text>
+                <Text style={rankingsStyles.emptyCard}>?</Text>
             </Pressable>
         );
     } else {
         return (
             <Pressable
                 style={[
-                    handCardStyles.cardContainer,
-                    props.selected ? handCardStyles.highlight : null,
+                    rankingsStyles.cardContainer,
+                    props.selected ? rankingsStyles.highlight : null,
                 ]}
                 onPress={props.onPress}
             >
                 <MaterialCommunityIcons
                     name={getSuitIcon()}
                     style={[
-                        handCardStyles.suitIcon,
+                        rankingsStyles.suitIcon,
                         props.color === "red"
-                            ? handCardStyles.redCard
-                            : handCardStyles.blackCard,
+                            ? rankingsStyles.redCard
+                            : rankingsStyles.blackCard,
                     ]}
                 />
                 <Text
                     style={[
-                        handCardStyles.rankStyle,
+                        rankingsStyles.rankStyle,
                         props.color === "red"
-                            ? handCardStyles.redCard
-                            : handCardStyles.blackCard,
+                            ? rankingsStyles.redCard
+                            : rankingsStyles.blackCard,
                     ]}
                 >
                     {props.rank}
