@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { colors, viewportHeight, viewportWidth } from "@/styles/constants";
 
 export const inputContainerStyles = StyleSheet.create({
@@ -14,11 +14,14 @@ export const inputContainerStyles = StyleSheet.create({
         position: "absolute",
         bottom: viewportHeight * 0.3 - 30,
         alignItems: "center",
+        height: viewportHeight * 0.7,
+        paddingTop: viewportHeight * 0.49,
         zIndex: 10,
     },
     selectorCardContainer: {
         flexDirection: "row",
         flexWrap: "wrap",
+        justifyContent: "flex-end",
         alignItems: "center",
     },
     playerCountContainer: {
@@ -41,12 +44,13 @@ export const inputContainerStyles = StyleSheet.create({
     },
     toggleOption: {
         fontSize: 17.5,
-        color: colors.white,
+        color: colors.toggleActive,
         paddingHorizontal: 10,
         paddingVertical: 10,
     },
     activeToggle: {
         backgroundColor: colors.toggleActive,
+        color: colors.white,
     },
     handContainer: {
         flexDirection: "row",

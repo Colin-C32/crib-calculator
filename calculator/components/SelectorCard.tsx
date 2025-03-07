@@ -1,6 +1,7 @@
 import { View, Text, Modal } from "react-native";
 import { selectorCardStyles } from "@/styles/selectorCardStyles";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import React from "react";
 
 type Props = {
     rank?: string;

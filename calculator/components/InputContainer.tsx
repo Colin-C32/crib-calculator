@@ -134,7 +134,11 @@ export default function InputContainer() {
     return (
         <View>
             {cardSelectorActive && (
-                <View style={inputContainerStyles.modalContainer}>
+                <TouchableOpacity
+                    onPress={() => setCardSelectorActive(false)}
+                    style={inputContainerStyles.modalContainer}
+                    activeOpacity={1}
+                >
                     <FlatList
                         data={allCards}
                         keyExtractor={(item) => item.index}
@@ -145,6 +149,7 @@ export default function InputContainer() {
                                     inputContainerStyles.selectorCardContainer
                                 }
                                 onPress={() => updateHand(item)}
+                                activeOpacity={0.7}
                             >
                                 <SelectorCard
                                     suit={item?.suit}
@@ -155,7 +160,7 @@ export default function InputContainer() {
                             </TouchableOpacity>
                         )}
                     />
-                </View>
+                </TouchableOpacity>
             )}
 
             <TouchableOpacity
@@ -164,7 +169,10 @@ export default function InputContainer() {
             >
                 <View style={inputContainerStyles.playerCountContainer}>
                     <View style={inputContainerStyles.toggleContainer}>
-                        <TouchableOpacity onPress={() => setIsMyCrib(true)}>
+                        <TouchableOpacity
+                            onPress={() => setIsMyCrib(true)}
+                            activeOpacity={0.2}
+                        >
                             <Text
                                 style={[
                                     inputContainerStyles.toggleOption,
@@ -175,7 +183,10 @@ export default function InputContainer() {
                                 My Crib
                             </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => setIsMyCrib(false)}>
+                        <TouchableOpacity
+                            onPress={() => setIsMyCrib(false)}
+                            activeOpacity={0.2}
+                        >
                             <Text
                                 style={[
                                     inputContainerStyles.toggleOption,
@@ -188,7 +199,10 @@ export default function InputContainer() {
                         </TouchableOpacity>
                     </View>
                     <View style={inputContainerStyles.toggleContainer}>
-                        <Pressable onPress={changePlayerCount}>
+                        <TouchableOpacity
+                            onPress={changePlayerCount}
+                            activeOpacity={0.2}
+                        >
                             <Text
                                 style={[
                                     inputContainerStyles.toggleOption,
@@ -198,8 +212,11 @@ export default function InputContainer() {
                             >
                                 2 Players
                             </Text>
-                        </Pressable>
-                        <Pressable onPress={changePlayerCount}>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={changePlayerCount}
+                            activeOpacity={0.7}
+                        >
                             <Text
                                 style={[
                                     inputContainerStyles.toggleOption,
@@ -209,10 +226,13 @@ export default function InputContainer() {
                             >
                                 3 Players
                             </Text>
-                        </Pressable>
+                        </TouchableOpacity>
                     </View>
                 </View>
-                <Pressable style={inputContainerStyles.handContainer}>
+                <TouchableOpacity
+                    style={inputContainerStyles.handContainer}
+                    activeOpacity={0.7}
+                >
                     {hand.map((card, index) => (
                         <HandCard
                             onPress={() => handleOpenCardSelector(index)}
@@ -223,7 +243,7 @@ export default function InputContainer() {
                             selected={index === selectedSpot}
                         />
                     ))}
-                </Pressable>
+                </TouchableOpacity>
             </TouchableOpacity>
         </View>
     );
