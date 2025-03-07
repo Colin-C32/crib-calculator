@@ -6,9 +6,9 @@ import RankingSection from "./RankingSection";
 export default function RankingsContainer() {
     return (
         <View style={rankingsStyles.rankingsContainer}>
-            <RankingSection title={"Highest Expected Value:"} />
-            <RankingSection title={"Highest Potential Value:"} />
-            <RankingSection title={"Highest Base Value:"} />
+            <RankingSection title={"Highest Average Score"} />
+            <RankingSection title={"Highest Potential Score"} />
+            <RankingSection title={"Highest Base Score"} />
         </View>
     );
 }

@@ -32,7 +32,14 @@ export default function Option(hand: Hand) {
         <View style={rankingsStyles.optionContainer}>
             <View style={rankingsStyles.cardSection}>
                 <View style={rankingsStyles.keepSection}>
-                    <Text style={rankingsStyles.text}>Keep:</Text>
+                    <Text
+                        style={[
+                            rankingsStyles.text,
+                            rankingsStyles.keepSection,
+                        ]}
+                    >
+                        Keep
+                    </Text>
 
                     <View style={rankingsStyles.cardFlex}>
                         <RankingCard />
@@ -43,7 +50,14 @@ export default function Option(hand: Hand) {
                 </View>
 
                 <View style={rankingsStyles.keepSection}>
-                    <Text style={rankingsStyles.text}>Throw:</Text>
+                    <Text
+                        style={[
+                            rankingsStyles.text,
+                            rankingsStyles.throwSection,
+                        ]}
+                    >
+                        Throw
+                    </Text>
 
                     <View style={rankingsStyles.cardFlex}>
                         <RankingCard />

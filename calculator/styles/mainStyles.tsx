@@ -7,5 +7,6 @@ export const mainStyles = StyleSheet.create({
         flexDirection: "column",
         backgroundColor: colors.black,
         margin: 0,
+        paddingTop: 50,
     },
 });

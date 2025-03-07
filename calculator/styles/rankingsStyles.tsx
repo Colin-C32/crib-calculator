@@ -12,6 +12,7 @@ export const rankingsStyles = StyleSheet.create({
     rankingSectionContainer: {},
     rankingTitle: {
         color: colors.yellow,
+        textDecorationLine: "underline",
         fontWeight: "bold",
         fontSize: 20,
     },
@@ -49,6 +50,7 @@ export const rankingsStyles = StyleSheet.create({
     },
     keepSection: {
         flexDirection: "column",
+        color: colors.green,
     },
     cardFlex: {
         flexDirection: "row",
@@ -56,6 +58,7 @@ export const rankingsStyles = StyleSheet.create({
     },
     throwSection: {
         flexDirection: "column",
+        color: colors.red,
     },
     statsContainer: {
         marginVertical: 10,

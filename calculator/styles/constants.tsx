@@ -12,6 +12,7 @@ export const colors = {
     grey: "#979797",
     transparentBackground: "rgba(34, 31, 31, 0.73)",
     yellow: "#ffe431",
+    green: "rgb(100, 230, 88)",
 };
 
 export const fonts = {};
