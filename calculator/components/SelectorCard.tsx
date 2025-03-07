@@ -47,7 +47,7 @@ export default function SelectorCard(props: Props) {
                         : selectorCardStyles.blackCard,
                 ]}
             >
-                {props.rank || "A"}
+                {props.rank}
             </Text>
         </View>
     );

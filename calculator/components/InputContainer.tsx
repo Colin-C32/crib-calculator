@@ -6,7 +6,6 @@ import {
     Modal,
     FlatList,
     TouchableOpacity,
-    TouchableWithoutFeedback,
 } from "react-native";
 import { inputContainerStyles } from "@/styles/inputContainerStyles";
 
@@ -60,12 +59,30 @@ export default function InputContainer() {
     const changePlayerCount = () => {
         if (players === 2) {
             setPlayers(3);
-            setHand(Array.from({ length: 5 }));
+            removeLastCard();
         } else {
             setPlayers(2);
-            setHand(Array.from({ length: 6 }));
+            addCard();
         }
     };
+
+    function removeLastCard() {
+        setHand((prevHand) => {
+            return prevHand.slice(0, -1);
+        });
+    }
+
+    function addCard() {
+        setHand((prevHand) => {
+            let newHand: Card[] = Array.from({ length: 6 }, (_, i) => ({
+                index: `${i + 1}`,
+            }));
+            for (let i = 0; i < prevHand.length; i++) {
+                newHand[i] = prevHand[i];
+            }
+            return newHand;
+        });
+    }
 
     function getFirstUnknownCard() {
         for (let i = 0; i < hand.length; i++) {
@@ -98,6 +115,9 @@ export default function InputContainer() {
     }
 
     function updateHand(card: Card) {
+        if (isCardTaken(card)) {
+            return;
+        }
         setHand((prevHand) => {
             const updatedHand = [...prevHand];
             updatedHand[selectedSpot] = card;
@@ -113,11 +133,7 @@ export default function InputContainer() {
 
     return (
         <View>
-            <Modal
-                visible={cardSelectorActive}
-                transparent
-                animationType="slide"
-            >
+            {cardSelectorActive && (
                 <View style={inputContainerStyles.modalContainer}>
                     <FlatList
                         data={allCards}
@@ -140,12 +156,15 @@ export default function InputContainer() {
                         )}
                     />
                 </View>
-            </Modal>
+            )}
 
-            <View style={inputContainerStyles.inputContainer}>
+            <TouchableOpacity
+                onPress={() => setCardSelectorActive(false)}
+                style={inputContainerStyles.inputContainer}
+            >
                 <View style={inputContainerStyles.playerCountContainer}>
                     <View style={inputContainerStyles.toggleContainer}>
-                        <Pressable onPress={() => setIsMyCrib(true)}>
+                        <TouchableOpacity onPress={() => setIsMyCrib(true)}>
                             <Text
                                 style={[
                                     inputContainerStyles.toggleOption,
@@ -155,8 +174,8 @@ export default function InputContainer() {
                             >
                                 My Crib
                             </Text>
-                        </Pressable>
-                        <Pressable onPress={() => setIsMyCrib(false)}>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => setIsMyCrib(false)}>
                             <Text
                                 style={[
                                     inputContainerStyles.toggleOption,
@@ -166,7 +185,7 @@ export default function InputContainer() {
                             >
                                 Op's Crib
                             </Text>
-                        </Pressable>
+                        </TouchableOpacity>
                     </View>
                     <View style={inputContainerStyles.toggleContainer}>
                         <Pressable onPress={changePlayerCount}>
@@ -205,7 +224,7 @@ export default function InputContainer() {
                         />
                     ))}
                 </Pressable>
-            </View>
+            </TouchableOpacity>
         </View>
     );
 }

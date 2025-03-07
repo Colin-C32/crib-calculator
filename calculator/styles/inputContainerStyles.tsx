@@ -3,13 +3,18 @@ import { colors, viewportHeight, viewportWidth } from "@/styles/constants";
 
 export const inputContainerStyles = StyleSheet.create({
     inputContainer: {
-        flex: 1,
+        position: "fixed",
+        bottom: 0,
+        height: viewportHeight * 0.3 - 30,
+        paddingVertical: 30,
+        justifyContent: "flex-end",
         flexDirection: "column",
     },
     modalContainer: {
         position: "absolute",
-        alignSelf: "center",
-        bottom: viewportHeight * 0.35,
+        bottom: viewportHeight * 0.3 - 30,
+        alignItems: "center",
+        zIndex: 10,
     },
     selectorCardContainer: {
         flexDirection: "row",
@@ -48,6 +53,6 @@ export const inputContainerStyles = StyleSheet.create({
         justifyContent: "center",
         gap: 10,
         marginHorizontal: 15,
-        marginVertical: 20,
+        marginVertical: 10,
     },
 });
