@@ -1,23 +1,23 @@
 import { StyleSheet } from "react-native";
-import { colors } from "@/styles/constants";
+import { colors, viewportHeight, viewportWidth } from "@/styles/constants";
 
-export const handCardStyles = StyleSheet.create({
-    cardContainer: {
+export const selectorCardStyles = StyleSheet.create({
+    selectorContainer: {
         backgroundColor: colors.white,
         borderRadius: 5,
         alignItems: "center",
         justifyContent: "center",
-        height: 78.75,
-        width: 56.25,
+        height: 42,
+        width: 30,
+        margin: 0.5,
     },
     suitIcon: {
-        fontSize: 30,
+        fontSize: 15,
         marginTop: 5,
     },
     rankStyle: {
-        fontSize: 25,
+        fontSize: 15,
         fontWeight: "bold",
-        marginTop: 5,
     },
     redCard: {
         color: colors.red,
@@ -25,8 +25,7 @@ export const handCardStyles = StyleSheet.create({
     blackCard: {
         color: colors.black,
     },
-    highlight: {
-        borderWidth: 3,
-        borderColor: colors.toggleActive,
+    taken: {
+        backgroundColor: colors.grey,
     },
 });

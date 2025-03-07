@@ -1,14 +1,14 @@
-import { View } from 'react-native';
-import * as SplashScreen from 'expo-splash-screen';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+import React from "react";
+import { View, Text } from "react-native";
+import InputContainer from "@/components/InputContainer";
+import RankingsContainer from "@/components/RankingsContainer";
+import { mainStyles } from "@/styles/mainStyles";
 
 export default function RootLayout() {
-
-  return (
-      <View>
-
-      </View>
-  );
+    return (
+        <View style={mainStyles.pageContainer}>
+            <RankingsContainer />
+            <InputContainer />
+        </View>
+    );
 }
