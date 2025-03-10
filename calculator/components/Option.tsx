@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     View,
     Text,
@@ -27,7 +27,11 @@ type Hand = {
     lowestPossibleScore?: number;
 };
 
-export default function Option(hand: Hand) {
+type OptionProps = {
+    hand: Hand;
+};
+
+export default function Option(props: OptionProps) {
     return (
         <View style={rankingsStyles.optionContainer}>
             <View style={rankingsStyles.cardSection}>
@@ -42,14 +46,18 @@ export default function Option(hand: Hand) {
                     </Text>
 
                     <View style={rankingsStyles.cardFlex}>
-                        <RankingCard />
-                        <RankingCard />
-                        <RankingCard />
-                        <RankingCard />
+                        {props.hand.keptCards?.map((card, index) => (
+                            <RankingCard
+                                key={index}
+                                rank={card?.rank}
+                                suit={card?.suit}
+                                color={card?.color}
+                            />
+                        ))}
                     </View>
                 </View>
 
-                <View style={rankingsStyles.keepSection}>
+                <View style={rankingsStyles.throwSection}>
                     <Text
                         style={[
                             rankingsStyles.text,
@@ -60,8 +68,14 @@ export default function Option(hand: Hand) {
                     </Text>
 
                     <View style={rankingsStyles.cardFlex}>
-                        <RankingCard />
-                        <RankingCard />
+                        {props.hand.thrownCards?.map((card, index) => (
+                            <RankingCard
+                                key={index}
+                                rank={card?.rank}
+                                suit={card?.suit}
+                                color={card?.color}
+                            />
+                        ))}
                     </View>
                 </View>
             </View>
@@ -76,11 +90,11 @@ export default function Option(hand: Hand) {
     );
 }
 
-type Props = {
+type StatisticProps = {
     title: string;
     value: number;
 };
-function Statistic(props: Props) {
+function Statistic(props: StatisticProps) {
     return (
         <View style={rankingsStyles.statisticContainer}>
             <Text style={rankingsStyles.subtext}>{props.title}:</Text>

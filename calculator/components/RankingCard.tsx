@@ -10,6 +10,7 @@ type Props = {
     selected?: boolean;
     onPress?: () => void;
 };
+
 export default function RankingCard(props: Props) {
     function getSuitIcon() {
         switch (props.suit) {

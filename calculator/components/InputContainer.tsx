@@ -11,23 +11,10 @@ import { inputContainerStyles } from "@/styles/inputContainerStyles";
 
 import HandCard from "./HandCard";
 import SelectorCard from "./SelectorCard";
+import { useHandContext } from "@/hooks/handContext";
 
 const suits = ["S", "H", "C", "D"];
-const ranks = [
-    "A",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "J",
-    "Q",
-    "K",
-];
+const ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K"];
 
 const allCards: Card[] = [];
 
@@ -52,9 +39,11 @@ type Card = {
 export default function InputContainer() {
     const [isMyCrib, setIsMyCrib] = useState(true);
     const [players, setPlayers] = useState(2);
-    const [hand, setHand] = useState<Card[]>(Array.from({ length: 6 }));
+    // const [hand, setHand] = useState<Card[]>(Array.from({ length: 6 }));
     const [cardSelectorActive, setCardSelectorActive] = useState(false);
     const [selectedSpot, setSelectedSpot] = useState(-1);
+
+    const { hand, setHand } = useHandContext();
 
     const changePlayerCount = () => {
         if (players === 2) {
@@ -82,13 +71,13 @@ export default function InputContainer() {
     };
 
     function removeLastCard() {
-        setHand((prevHand) => {
+        setHand((prevHand: Card[]) => {
             return prevHand.slice(0, -1);
         });
     }
 
     function addCard() {
-        setHand((prevHand) => {
+        setHand((prevHand: Card[]) => {
             let newHand: Card[] = Array.from({ length: 6 }, (_, i) => ({
                 index: `${i + 1}`,
             }));
@@ -133,7 +122,7 @@ export default function InputContainer() {
         if (isCardTaken(card)) {
             return;
         }
-        setHand((prevHand) => {
+        setHand((prevHand: Card[]) => {
             const updatedHand = [...prevHand];
             updatedHand[selectedSpot] = card;
             return updatedHand;
