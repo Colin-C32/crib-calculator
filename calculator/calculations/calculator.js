@@ -1,9 +1,3 @@
-/*const fs = require("fs");
-
-const fullHandScore = JSON.parse(
-    fs.readFileSync("./pre-computed/5CardHands.json", "utf8")
-);*/
-
 const fullHandScore = require("@/assets/5CardHands.json");
 
 const values = [
@@ -21,192 +15,6 @@ const values = [
     "Q",
     "K",
 ];
-
-function sortByValue(hand) {
-    return hand
-        .split("")
-        .sort((a, b) => values.indexOf(a) - values.indexOf(b))
-        .join("");
-}
-
-function getThrownCardsOld(fullHand, keptHand) {
-    const cardCount = {};
-
-    for (let char of fullHand) {
-        cardCount[char] = (cardCount[char] || 0) + 1;
-    }
-
-    for (let char of keptHand) {
-        cardCount[char] = cardCount[char] - 1;
-    }
-
-    let thrownCards = "";
-
-    for (const key in cardCount) {
-        while (cardCount[key] > 0) {
-            thrownCards += key;
-            cardCount[key]--;
-        }
-    }
-
-    return thrownCards;
-}
-
-function generateCardCombinations(size) {
-    const cardValues = [...Array(8).keys()]
-        .map((i) => (i + 2).toString())
-        .concat(["T", "J", "Q", "K", "A"]);
-
-    function cartesianProduct(arr, repeat) {
-        if (repeat === 1) {
-            return arr.map((el) => [el]);
-        }
-        return cartesianProduct(arr, repeat - 1).flatMap((hand) =>
-            arr.map((el) => [...hand, el])
-        );
-    }
-    return cartesianProduct(cardValues, size).map((hand) => hand.join(""));
-}
-
-function handCombinations(str, k) {
-    const results = [];
-
-    function combine(prefix, start) {
-        if (prefix.length === k) {
-            results.push(prefix);
-            return;
-        }
-        for (let i = start; i < str.length; i++) {
-            combine(prefix + str[i], i + 1);
-        }
-    }
-
-    combine("", 0);
-    return results;
-}
-
-function getAverageHandScore(allCards, keptHand, hands) {
-    let totalScore = 0;
-    for (let i = 0; i < values.length; i++) {
-        multiples = 4 - (allCards[values[i]] ?? 0);
-        if (multiples == 0) {
-            continue;
-        }
-        handWithCut = sortByValue(keptHand + values[i]);
-        score = fullHandScore[handWithCut];
-        totalScore += score * multiples;
-    }
-
-    return totalScore / hands;
-}
-
-function suitScore(hand, cut) {
-    let suitsInHand = new Set([]);
-
-    for (let suit of hand) {
-        suitsInHand.add(suit);
-    }
-
-    if (suitsInHand.size > 1) {
-        return 0;
-    }
-
-    suitsInHand.add(cut);
-
-    if (suitsInHand.size > 1) {
-        return 4;
-    }
-
-    return 5;
-}
-
-function jackScore(knownCards, hand) {
-    let jackSuits = new Set([]);
-    let suits = {};
-    let total = 0;
-
-    for (let card of hand) {
-        if (card.rank === "J") {
-            jackSuits.add(card.suit);
-        }
-    }
-
-    for (let card of knownCards) {
-        suits[card.suit] = (suits[card.suit] ?? 0) + 1;
-    }
-
-    for (let jack of jackSuits) {
-        total += 13 - suits[jack];
-    }
-    return total;
-}
-
-function getAverageCribScore(allCards, thrownCards, hands) {
-    othersThrown = generateCardCombinations(2);
-    possibleHands = 0;
-    totalScore = 0;
-
-    for (let i = 0; i < othersThrown.length; i++) {
-        let otherCards = othersThrown[i];
-        fullCrib = otherCards + thrownCards;
-        hiddenCardsMultiples =
-            (4 - (allCards[otherCards[0]] ?? 0)) *
-            (4 - (allCards[otherCards[1]] ?? 0));
-
-        if (hiddenCardsMultiples <= 0) {
-            continue;
-        }
-        let cardMap = { ...allCards };
-
-        cardMap[otherCards[0]] = (cardMap[otherCards[0]] ?? 0) + 1;
-        cardMap[otherCards[1]] = (cardMap[otherCards[1]] ?? 0) + 1;
-
-        for (let i = 0; i < values.length; i++) {
-            multiples = 4 - (cardMap[values[i]] ?? 0);
-            if (multiples <= 0) {
-                continue;
-            }
-
-            cribWithCut = sortByValue(fullCrib + values[i]);
-            score = fullHandScore[cribWithCut];
-            totalScore += score * multiples * hiddenCardsMultiples;
-            possibleHands += hiddenCardsMultiples * multiples;
-        }
-    }
-    return totalScore / possibleHands;
-}
-
-function calculateMainHandScore(fullHand) {
-    possibilities = handCombinations(fullHand, 4);
-    cards = {};
-    options = {};
-
-    for (let i = 0; i < fullHand.length; i++) {
-        if (cards[fullHand[i].rank] === undefined) {
-            cards[fullHand[i].rank] = 1;
-        } else {
-            cards[fullHand[i].rank]++;
-        }
-    }
-    console.log(possibilities);
-
-    for (let i = 0; i < possibilities.length; i++) {
-        let thrownCards = getThrownCardsOld(fullHand, possibilities[i]);
-
-        avgCribScore = getAverageCribScore(
-            cards,
-            thrownCards,
-            52 - fullHand.length
-        );
-        avgHandScore = getAverageHandScore(
-            cards,
-            possibilities[i],
-            52 - fullHand.length
-        );
-    }
-}
-
-// calculateMainHandScore("2222K3");
 
 function getJackSuits(keptCards, hand) {
     let jackSuits = new Map();
@@ -234,6 +42,61 @@ function getJacksScore(jackSuits, rank) {
         }
     }
     return score;
+}
+
+function getCribJackScore(rankMap, combo, cribRankString, cut) {
+    let jackCount = 0;
+
+    for (const card of combo) {
+        if (!rankMap.has(card)) {
+            rankMap.set(card, 1);
+        } else {
+            rankMap.set(card, rankMap.get(card) + 1);
+        }
+    }
+
+    for (const rank of cribRankString) {
+        if (rank === "J") {
+            jackCount += 1;
+        }
+    }
+
+    return jackCount * (4 - (rankMap.get(cut) ?? 0));
+}
+
+function hasDuplicates(str) {
+    return new Set(str).size < str.length;
+}
+
+function getCribFlushScore(thrownCards, fullHand, fullCribRankString, cut) {
+    if (hasDuplicates(fullCribRankString + cut)) {
+        return 0;
+    }
+    let suit = thrownCards[0].suit;
+
+    let suitSet = new Set();
+
+    for (const card of fullHand) {
+        if (card.suit === suit) {
+            suitSet.add(card.rank);
+        }
+    }
+
+    let count = 0;
+    for (const rank of fullCribRankString) {
+        if (suitSet.has(rank)) {
+            count += 1;
+        }
+    }
+    if (suitSet.has(cut)) {
+        count += 1;
+    }
+
+    if (thrownCards.size - count === 0) {
+        return 5;
+    }
+
+    return 0;
 }
 
 function getFlushSuit(cards) {
@@ -292,7 +155,7 @@ function getHandScore(cardCount, rankMap, keptCards, fullHand) {
     const totalHands = 52 - cardCount;
 
     for (let i = 0; i < values.length; i++) {
-        let multiples = 4 - (rankMap[values[i]] ?? 0);
+        let multiples = 4 - (rankMap.get(values[i]) ?? 0);
         if (multiples == 0) {
             continue;
         }
@@ -328,6 +191,101 @@ function getHandScore(cardCount, rankMap, keptCards, fullHand) {
     return [totalScore / totalHands, maxHandScore, minHandScore];
 }
 
+function getMultiples(rankMap, combo, cut) {
+    for (const card of combo) {
+        if (!rankMap.has(card)) {
+            rankMap.set(card, 1);
+        } else {
+            rankMap.set(card, rankMap.get(card) + 1);
+        }
+    }
+    return 4 - (rankMap.get(cut) ?? 0);
+}
+
+function getComboMultiples(rankMap, combo) {
+    let comboMultiple = 1;
+    for (const card of combo) {
+        if (!rankMap.has(card)) {
+            rankMap.set(card, 3);
+        } else {
+            rankMap.set(card, rankMap.get(card) - 1);
+        }
+
+        comboMultiple *= 3 - (rankMap.get(card) ?? 0);
+    }
+
+    return comboMultiple;
+}
+
+function getCribScore(fullHand, rankMap, suitMap, thrownCards) {
+    let otherThrownCards = generateRankCombinations(4 - thrownCards.length);
+    let cribRankString = "";
+    for (const card of thrownCards) {
+        cribRankString += card.rank;
+    }
+
+    let maxCribScore = 0;
+    let minCribScore = 30;
+    let totalScore = 0;
+    let totalHands = 0;
+
+    for (const cards of otherThrownCards) {
+        let fullCribRankString = cribRankString + cards.join("");
+        let comboMultiples = getComboMultiples(new Map(rankMap), cards);
+
+        for (let i = 0; i < values.length; i++) {
+            let multiples =
+                getMultiples(new Map(rankMap), cards, values[i]) *
+                comboMultiples;
+
+            if (multiples <= 0) {
+                continue;
+            }
+
+            totalHands += multiples;
+
+            let cribRanksWithCut = getSortedRanks(
+                fullCribRankString + values[i]
+            );
+
+            let cribScore = fullHandScore[cribRanksWithCut];
+
+            let jacksScore = getCribJackScore(
+                new Map(rankMap),
+                new Map(suitMap),
+                cards,
+                fullCribRankString,
+                values[0]
+            );
+            let flushScore = getCribFlushScore(
+                thrownCards,
+                fullHand,
+                fullCribRankString,
+                values[i]
+            );
+
+            totalScore += cribScore * multiples;
+            totalScore += flushScore;
+
+            if (jacksScore > 0) {
+                maxCribScore = Math.max(
+                    1 + cribScore + flushScore,
+                    maxCribScore
+                );
+                minCribScore = Math.min(
+                    Math.floor(jacksScore / 4) + cribScore,
+                    minCribScore
+                );
+            } else {
+                maxCribScore = Math.max(cribScore + flushScore, maxCribScore);
+                minCribScore = Math.min(cribScore, minCribScore);
+            }
+        }
+    }
+
+    return [totalScore / totalHands, maxCribScore, minCribScore];
+}
+
 function getThrownCards(allCards, keptCards) {
     const difference = allCards.filter(
         (item2) =>
@@ -341,6 +299,24 @@ function getThrownCards(allCards, keptCards) {
     );
 
     return difference;
+}
+
+function generateRankCombinations(k) {
+    function helper(start, combo) {
+        if (combo.length === k) {
+            result.push([...combo]);
+            return;
+        }
+        for (let i = start; i < values.length; i++) {
+            combo.push(values[i]);
+            helper(i, combo); // Allow same index again
+            combo.pop();
+        }
+    }
+
+    const result = [];
+    helper(0, []);
+    return result;
 }
 
 function generateHandCombinations(hand, k) {
@@ -362,7 +338,7 @@ function generateHandCombinations(hand, k) {
     return result;
 }
 
-export default function digestHandScoring(hand) {
+export default function digestHandScoring(hand, isUserCrib) {
     let rankMap = new Map();
     let suitMap = new Map();
 
@@ -385,9 +361,13 @@ export default function digestHandScoring(hand) {
 
     const possibilities = generateHandCombinations(hand, 4);
 
-    let highestAverageScoreHand = possibilities[0];
-    let highestPotentialScoreHand = possibilities[1];
-    let highestBaseScoreHand = possibilities[2];
+    let highestAverageScore = 0;
+    let highestPotentialScore = 0;
+    let highestBaseScore = 0;
+
+    let averageScoreData = {};
+    let potentialScoreData = {};
+    let baseScoreData = {};
 
     for (let i = 0; i < possibilities.length; i++) {
         const thrownCards = getThrownCards(hand, possibilities[i]);
@@ -398,5 +378,53 @@ export default function digestHandScoring(hand) {
             possibilities[i],
             hand
         );
+
+        let cribScoreData = getCribScore(hand, rankMap, suitMap, thrownCards);
+
+        let handData = {
+            keptCards: possibilities[i],
+            thrownCards: thrownCards,
+            averageTotalScore: isUserCrib
+                ? handScoreData[0] + cribScoreData[0]
+                : handScoreData[0] - cribScoreData[0],
+            averageHandScore: handScoreData[0],
+            averageCribScore: cribScoreData[0],
+            baseScore: isUserCrib
+                ? handScoreData[2] + cribScoreData[2]
+                : handScoreData[2] - handScoreData[2],
+            highestPossible: isUserCrib
+                ? handScoreData[1] + handScoreData[2]
+                : handScoreData[1] - handScoreData[2],
+        };
+
+        if (isUserCrib) {
+            if (handScoreData[0] + cribScoreData[0] >= highestAverageScore) {
+                averageScoreData = handData;
+                highestAverageScore = handScoreData[0] + cribScoreData[0];
+            }
+            if (handScoreData[1] + cribScoreData[1] >= highestPotentialScore) {
+                potentialScoreData = handData;
+                highestPotentialScore = handScoreData[1] + cribScoreData[1];
+            }
+            if (handScoreData[2] + cribScoreData[2] >= highestBaseScore) {
+                baseScoreData = handData;
+                highestBaseScore = handScoreData[2] + cribScoreData[2];
+            }
+        } else {
+            if (handScoreData[0] - cribScoreData[0] >= highestAverageScore) {
+                averageScoreData = handData;
+                highestAverageScore = handScoreData[0] - cribScoreData[0];
+            }
+            if (handScoreData[1] - cribScoreData[1] >= highestPotentialScore) {
+                potentialScoreData = handData;
+                highestPotentialScore = handScoreData[1] - cribScoreData[1];
+            }
+            if (handScoreData[2] - cribScoreData[2] >= highestBaseScore) {
+                baseScoreData = handData;
+                highestBaseScore = handScoreData[2] - cribScoreData[2];
+            }
+        }
     }
+
+    return [averageScoreData, potentialScoreData, baseScoreData];
 }

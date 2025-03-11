@@ -51,15 +51,18 @@ export default function RankingsContainer() {
     useEffect(() => {
         if (!hand) return;
 
-        if (hand[5]?.rank != undefined) {
-            const trialHand = digestHandScoring(hand);
+        if (hand[hand.length - 1]?.rank != undefined) {
+            const handData = digestHandScoring(hand, true);
+            console.log(handData);
+
+            /*
+            setHighestAverageHand(handData[0]);
+            setHighestPotentialHand(handData[1]);
+            setHighestBaseHand(handData[2]);
+            */
         }
 
         const newHighestAverageHand = calculateHighestAverageHand(hand);
-
-        setHighestAverageHand(newHighestAverageHand);
-        setHighestPotentialHand(newHighestAverageHand);
-        setHighestBaseHand(newHighestAverageHand);
     }, [hand]);
 
     return (
