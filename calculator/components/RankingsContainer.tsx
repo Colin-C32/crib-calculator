@@ -147,7 +147,7 @@ export default function RankingsContainer() {
             }
             return prev;
         });
-    }, [players]);
+    }, [players, isMyCrib]);
 
     return (
         <View style={rankingsStyles.rankingsContainer}>
