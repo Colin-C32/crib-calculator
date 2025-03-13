@@ -198,13 +198,20 @@ function getMultiples(rankMap, combo, cut) {
 function getComboMultiples(rankMap, combo) {
     let comboMultiple = 1;
     for (const card of combo) {
+        comboMultiple *= 4 - (rankMap.get(card) ?? 0);
         if (!rankMap.has(card)) {
-            rankMap.set(card, 3);
+            rankMap.set(card, 1);
         } else {
-            rankMap.set(card, rankMap.get(card) - 1);
+            rankMap.set(card, rankMap.get(card) + 1);
         }
+    }
 
-        comboMultiple *= 3 - (rankMap.get(card) ?? 0);
+    let uniqueCards = new Set();
+    for (const card of combo) {
+        if (uniqueCards.has(card)) {
+            comboMultiple /= rankMap.get(card) ?? 1;
+        }
+        uniqueCards.add(card);
     }
 
     return comboMultiple;
@@ -303,7 +310,7 @@ function generateRankCombinations(k) {
         }
         for (let i = start; i < values.length; i++) {
             combo.push(values[i]);
-            helper(i, combo); // Allow same index again
+            helper(i, combo);
             combo.pop();
         }
     }
@@ -355,7 +362,7 @@ export default function digestHandScoring(hand, isUserCrib) {
 
     const possibilities = generateHandCombinations(hand, 4);
 
-    let highestAverageScore = undefined;
+    let highestAverageScore = -30;
     let highestPotentialScore = 0;
     let highestBaseScore = 0;
 
@@ -392,22 +399,9 @@ export default function digestHandScoring(hand, isUserCrib) {
             highestHandScore: handScoreData[1],
         };
 
-        if (isUserCrib) {
-            if (
-                handScoreData[0] + cribScoreData[0] >= highestAverageScore ||
-                highestAverageScore === undefined
-            ) {
-                averageScoreData = handData;
-                highestAverageScore = handScoreData[0] + cribScoreData[0];
-            }
-        } else {
-            if (
-                handScoreData[0] - cribScoreData[0] >= highestAverageScore ||
-                highestAverageScore === undefined
-            ) {
-                averageScoreData = handData;
-                highestAverageScore = handScoreData[0];
-            }
+        if (handData.averageTotalValue >= highestAverageScore) {
+            highestAverageScore = handData.averageTotalValue;
+            averageScoreData = handData;
         }
 
         if (handScoreData[1] >= highestPotentialScore) {

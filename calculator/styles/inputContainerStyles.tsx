@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { colors, viewportHeight, viewportWidth } from "@/styles/constants";
 
 export const inputContainerStyles = StyleSheet.create({

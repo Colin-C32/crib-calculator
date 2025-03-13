@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-    View,
-    Text,
-    Pressable,
-    Modal,
-    FlatList,
-    TouchableOpacity,
-} from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { inputContainerStyles } from "@/styles/inputContainerStyles";
 
 import HandCard from "./HandCard";
