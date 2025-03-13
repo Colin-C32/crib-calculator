@@ -36,6 +36,18 @@ export const inputContainerStyles = StyleSheet.create({
         fontSize: 30,
         color: colors.white,
     },
+    clearButton: {
+        borderColor: colors.red,
+        marginHorizontal: 5,
+        borderRadius: 5,
+        borderWidth: 2,
+    },
+    clearText: {
+        color: colors.red,
+        fontSize: 12.5,
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+    },
     toggleContainer: {
         flexDirection: "row",
         marginHorizontal: 5,
@@ -44,7 +56,7 @@ export const inputContainerStyles = StyleSheet.create({
         borderWidth: 2,
     },
     toggleOption: {
-        fontSize: 17.5,
+        fontSize: 12.5,
         color: colors.toggleActive,
         paddingHorizontal: 10,
         paddingVertical: 10,

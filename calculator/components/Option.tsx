@@ -20,11 +20,11 @@ type Card = {
 type Hand = {
     keptCards?: Card[];
     thrownCards?: Card[];
-    averageHandValue?: number;
-    averageCribValue?: number;
+    averageHandScore?: number;
+    averageCribScore?: number;
     averageTotalValue?: number;
-    highestPossibleScore?: number;
-    lowestPossibleScore?: number;
+    lowestHandScore?: number;
+    highestHandScore?: number;
 };
 
 type OptionProps = {
@@ -76,15 +76,35 @@ export default function Option(props: OptionProps) {
                                 color={card?.color}
                             />
                         ))}
+                        {props.hand.thrownCards?.length === 1 && (
+                            <Pressable
+                                style={rankingsStyles.fillerCardContainer}
+                            />
+                        )}
                     </View>
                 </View>
             </View>
             <View style={rankingsStyles.statsContainer}>
-                <Statistic title="Average Total Score" value={10.2} />
-                <Statistic title="Highest Possible Score" value={12} />
-                <Statistic title="Average Hand Score" value={6.8} />
-                <Statistic title="Average Crib Score" value={3.4} />
-                <Statistic title="Lowest Possible Score" value={4} />
+                <Statistic
+                    title="Average Total Value"
+                    value={props.hand.averageTotalValue}
+                />
+                <Statistic
+                    title="Highest Hand Score"
+                    value={props.hand.highestHandScore}
+                />
+                <Statistic
+                    title="Average Hand Score"
+                    value={props.hand.averageHandScore}
+                />
+                <Statistic
+                    title="Average Crib Score"
+                    value={props.hand.averageCribScore}
+                />
+                <Statistic
+                    title="Lowest Possible Value"
+                    value={props.hand.lowestHandScore}
+                />
             </View>
         </View>
     );
@@ -92,14 +112,14 @@ export default function Option(props: OptionProps) {
 
 type StatisticProps = {
     title: string;
-    value: number;
+    value?: number;
 };
 function Statistic(props: StatisticProps) {
     return (
         <View style={rankingsStyles.statisticContainer}>
             <Text style={rankingsStyles.subtext}>{props.title}:</Text>
             <Text style={[rankingsStyles.subtext, rankingsStyles.valueText]}>
-                {props.value}
+                {props.value ? props.value.toFixed(2) : "-"}
             </Text>
         </View>
     );

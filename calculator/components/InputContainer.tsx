@@ -37,13 +37,11 @@ type Card = {
 };
 
 export default function InputContainer() {
-    const [isMyCrib, setIsMyCrib] = useState(true);
-    const [players, setPlayers] = useState(2);
-    // const [hand, setHand] = useState<Card[]>(Array.from({ length: 6 }));
     const [cardSelectorActive, setCardSelectorActive] = useState(false);
     const [selectedSpot, setSelectedSpot] = useState(-1);
 
-    const { hand, setHand } = useHandContext();
+    const { hand, setHand, isMyCrib, setIsMyCrib, players, setPlayers } =
+        useHandContext();
 
     const changePlayerCount = () => {
         if (players === 2) {
@@ -232,6 +230,14 @@ export default function InputContainer() {
                             </Text>
                         </TouchableOpacity>
                     </View>
+                    <TouchableOpacity
+                        onPress={() => setHand(Array.from({ length: 6 }))}
+                        style={inputContainerStyles.clearButton}
+                    >
+                        <Text style={inputContainerStyles.clearText}>
+                            Clear
+                        </Text>
+                    </TouchableOpacity>
                 </View>
                 <TouchableOpacity
                     style={inputContainerStyles.handContainer}

@@ -13,11 +13,11 @@ type Card = {
 type Hand = {
     keptCards?: Card[];
     thrownCards?: Card[];
-    averageHandValue?: number;
-    averageCribValue?: number;
+    averageHandScore?: number;
+    averageCribScore?: number;
     averageTotalValue?: number;
-    highestPossibleScore?: number;
-    lowestPossibleScore?: number;
+    lowestHandScore?: number;
+    highestHandScore?: number;
 };
 
 type Props = {

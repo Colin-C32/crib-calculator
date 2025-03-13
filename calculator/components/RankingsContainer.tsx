@@ -13,8 +13,8 @@ type Card = {
 };
 
 type Hand = {
-    keptCards?: Card[];
-    thrownCards?: Card[];
+    keptCards: Card[];
+    thrownCards: Card[];
     averageHandValue?: number;
     averageCribValue?: number;
     averageTotalValue?: number;
@@ -23,47 +23,131 @@ type Hand = {
 };
 
 export default function RankingsContainer() {
-    const { hand } = useHandContext();
-    const [highestAverageHand, setHighestAverageHand] = useState<Hand>({});
-    const [highestPotentialHand, setHighestPotentialHand] = useState<Hand>({});
-    const [highestBaseHand, setHighestBaseHand] = useState<Hand>({});
+    const { hand, isMyCrib, players } = useHandContext();
 
-    function calculateHighestAverageHand(newHand: Card[]): Hand {
-        if (!newHand || newHand.length === 0) return {};
+    let emptyHand = {
+        keptCards: Array(4)
+            .fill(null)
+            .map(() => ({
+                index: "",
+                suit: undefined,
+                rank: undefined,
+                color: undefined,
+            })),
+        thrownCards: Array(2)
+            .fill(null)
+            .map(() => ({
+                index: "",
+                suit: undefined,
+                rank: undefined,
+                color: undefined,
+            })),
+        averageHandValue: undefined,
+        averageCribValue: undefined,
+        averageTotalValue: undefined,
+        highestPossibleScore: undefined,
+        lowestPossibleScore: undefined,
+    };
 
-        const keptCards = newHand.slice(0, 4); // First 4 cards
-        const thrownCards = newHand.slice(4); // Remaining cards
+    const [highestAverageHand, setHighestAverageHand] =
+        useState<Hand>(emptyHand);
+    const [highestPotentialHand, setHighestPotentialHand] =
+        useState<Hand>(emptyHand);
+    const [highestBaseHand, setHighestBaseHand] = useState<Hand>(emptyHand);
 
-        const averageHandValue = keptCards.length * 5;
-        const averageCribValue = thrownCards.length * 3;
-        const averageTotalValue = averageHandValue + averageCribValue;
-
-        return {
-            keptCards,
-            thrownCards,
-            averageHandValue,
-            averageCribValue,
-            averageTotalValue,
-            highestPossibleScore: 50, // Placeholder
-            lowestPossibleScore: 10, // Placeholder
-        };
-    }
     useEffect(() => {
         if (!hand) return;
 
         if (hand[hand.length - 1]?.rank != undefined) {
-            const handData = digestHandScoring(hand, true);
-            console.log(handData);
+            const handData = digestHandScoring(hand, isMyCrib);
 
-            /*
-            setHighestAverageHand(handData[0]);
-            setHighestPotentialHand(handData[1]);
-            setHighestBaseHand(handData[2]);
-            */
+            setHighestAverageHand(handData[0] as Hand);
+            setHighestPotentialHand(handData[1] as Hand);
+            setHighestBaseHand(handData[2] as Hand);
+        } else {
+            setHighestAverageHand(emptyHand);
+            setHighestPotentialHand(emptyHand);
+            setHighestBaseHand(emptyHand);
         }
+    }, [hand, isMyCrib, players]);
 
-        const newHighestAverageHand = calculateHighestAverageHand(hand);
-    }, [hand]);
+    useEffect(() => {
+        setHighestAverageHand((prev) => {
+            if (players === 3) {
+                return {
+                    ...prev,
+                    thrownCards: prev.thrownCards.slice(0, 1),
+                };
+            } else if (players === 2) {
+                return {
+                    ...prev,
+                    thrownCards:
+                        prev.thrownCards.length < 2
+                            ? [
+                                  ...prev.thrownCards,
+                                  {
+                                      index: "",
+                                      suit: undefined,
+                                      rank: undefined,
+                                      color: undefined,
+                                  },
+                              ]
+                            : prev.thrownCards,
+                };
+            }
+            return prev;
+        });
+        setHighestPotentialHand((prev) => {
+            if (players === 3) {
+                return {
+                    ...prev,
+                    thrownCards: prev.thrownCards.slice(0, 1),
+                };
+            } else if (players === 2) {
+                return {
+                    ...prev,
+                    thrownCards:
+                        prev.thrownCards.length < 2
+                            ? [
+                                  ...prev.thrownCards,
+                                  {
+                                      index: "",
+                                      suit: undefined,
+                                      rank: undefined,
+                                      color: undefined,
+                                  },
+                              ]
+                            : prev.thrownCards,
+                };
+            }
+            return prev;
+        });
+        setHighestBaseHand((prev) => {
+            if (players === 3) {
+                return {
+                    ...prev,
+                    thrownCards: prev.thrownCards.slice(0, 1),
+                };
+            } else if (players === 2) {
+                return {
+                    ...prev,
+                    thrownCards:
+                        prev.thrownCards.length < 2
+                            ? [
+                                  ...prev.thrownCards,
+                                  {
+                                      index: "",
+                                      suit: undefined,
+                                      rank: undefined,
+                                      color: undefined,
+                                  },
+                              ]
+                            : prev.thrownCards,
+                };
+            }
+            return prev;
+        });
+    }, [players]);
 
     return (
         <View style={rankingsStyles.rankingsContainer}>

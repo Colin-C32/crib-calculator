@@ -93,4 +93,13 @@ export const rankingsStyles = StyleSheet.create({
         fontWeight: "bold",
         color: colors.grey,
     },
+    fillerCardContainer: {
+        borderRadius: 5,
+        backgroundColor: colors.black,
+        alignItems: "center",
+        justifyContent: "center",
+        height: 75,
+        width: 50,
+        gap: 2,
+    },
 });

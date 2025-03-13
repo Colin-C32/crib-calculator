@@ -44,24 +44,17 @@ function getJacksScore(jackSuits, rank) {
     return score;
 }
 
-function getCribJackScore(rankMap, combo, cribRankString, cut) {
-    let jackCount = 0;
+function getCribJackScore(hand, cut) {
+    let score = 4;
+    let jackSuits = getJackSuits(hand, hand);
 
-    for (const card of combo) {
-        if (!rankMap.has(card)) {
-            rankMap.set(card, 1);
-        } else {
-            rankMap.set(card, rankMap.get(card) + 1);
+    for (const [key, value] of jackSuits) {
+        if (!jackSuits.get(key).has(cut)) {
+            score -= 1;
         }
     }
 
-    for (const rank of cribRankString) {
-        if (rank === "J") {
-            jackCount += 1;
-        }
-    }
-
-    return jackCount * (4 - (rankMap.get(cut) ?? 0));
+    return score;
 }
 
 function hasDuplicates(str) {
@@ -217,7 +210,7 @@ function getComboMultiples(rankMap, combo) {
     return comboMultiple;
 }
 
-function getCribScore(fullHand, rankMap, suitMap, thrownCards) {
+function getCribScore(fullHand, hand, rankMap, thrownCards) {
     let otherThrownCards = generateRankCombinations(4 - thrownCards.length);
     let cribRankString = "";
     for (const card of thrownCards) {
@@ -251,12 +244,13 @@ function getCribScore(fullHand, rankMap, suitMap, thrownCards) {
             let cribScore = fullHandScore[cribRanksWithCut];
 
             let jacksScore = getCribJackScore(
-                new Map(rankMap),
-                new Map(suitMap),
-                cards,
+                hand,
                 fullCribRankString,
                 values[0]
             );
+
+            cribScore += jacksScore;
+
             let flushScore = getCribFlushScore(
                 thrownCards,
                 fullHand,
@@ -361,7 +355,7 @@ export default function digestHandScoring(hand, isUserCrib) {
 
     const possibilities = generateHandCombinations(hand, 4);
 
-    let highestAverageScore = 0;
+    let highestAverageScore = undefined;
     let highestPotentialScore = 0;
     let highestBaseScore = 0;
 
@@ -379,50 +373,50 @@ export default function digestHandScoring(hand, isUserCrib) {
             hand
         );
 
-        let cribScoreData = getCribScore(hand, rankMap, suitMap, thrownCards);
+        let cribScoreData = getCribScore(
+            hand,
+            possibilities[i],
+            rankMap,
+            thrownCards
+        );
 
         let handData = {
             keptCards: possibilities[i],
             thrownCards: thrownCards,
-            averageTotalScore: isUserCrib
+            averageTotalValue: isUserCrib
                 ? handScoreData[0] + cribScoreData[0]
                 : handScoreData[0] - cribScoreData[0],
             averageHandScore: handScoreData[0],
             averageCribScore: cribScoreData[0],
-            baseScore: isUserCrib
-                ? handScoreData[2] + cribScoreData[2]
-                : handScoreData[2] - handScoreData[2],
-            highestPossible: isUserCrib
-                ? handScoreData[1] + handScoreData[2]
-                : handScoreData[1] - handScoreData[2],
+            lowestHandScore: handScoreData[2],
+            highestHandScore: handScoreData[1],
         };
 
         if (isUserCrib) {
-            if (handScoreData[0] + cribScoreData[0] >= highestAverageScore) {
+            if (
+                handScoreData[0] + cribScoreData[0] >= highestAverageScore ||
+                highestAverageScore === undefined
+            ) {
                 averageScoreData = handData;
                 highestAverageScore = handScoreData[0] + cribScoreData[0];
             }
-            if (handScoreData[1] + cribScoreData[1] >= highestPotentialScore) {
-                potentialScoreData = handData;
-                highestPotentialScore = handScoreData[1] + cribScoreData[1];
-            }
-            if (handScoreData[2] + cribScoreData[2] >= highestBaseScore) {
-                baseScoreData = handData;
-                highestBaseScore = handScoreData[2] + cribScoreData[2];
-            }
         } else {
-            if (handScoreData[0] - cribScoreData[0] >= highestAverageScore) {
+            if (
+                handScoreData[0] - cribScoreData[0] >= highestAverageScore ||
+                highestAverageScore === undefined
+            ) {
                 averageScoreData = handData;
-                highestAverageScore = handScoreData[0] - cribScoreData[0];
+                highestAverageScore = handScoreData[0];
             }
-            if (handScoreData[1] - cribScoreData[1] >= highestPotentialScore) {
-                potentialScoreData = handData;
-                highestPotentialScore = handScoreData[1] - cribScoreData[1];
-            }
-            if (handScoreData[2] - cribScoreData[2] >= highestBaseScore) {
-                baseScoreData = handData;
-                highestBaseScore = handScoreData[2] - cribScoreData[2];
-            }
+        }
+
+        if (handScoreData[1] >= highestPotentialScore) {
+            potentialScoreData = handData;
+            highestPotentialScore = handScoreData[1];
+        }
+        if (handScoreData[2] >= highestBaseScore) {
+            baseScoreData = handData;
+            highestBaseScore = handScoreData[2];
         }
     }
 
