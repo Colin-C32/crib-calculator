@@ -126,6 +126,14 @@ export default function InputContainer() {
         }
     }
 
+    function clearHand() {
+        if (players === 2) {
+            setHand(Array.from({ length: 6 }));
+        } else {
+            setHand(Array.from({ length: 5 }));
+        }
+    }
+
     return (
         <View>
             {cardSelectorActive && (
@@ -224,7 +232,7 @@ export default function InputContainer() {
                         </TouchableOpacity>
                     </View>
                     <TouchableOpacity
-                        onPress={() => setHand(Array.from({ length: 6 }))}
+                        onPress={clearHand}
                         style={inputContainerStyles.clearButton}
                     >
                         <Text style={inputContainerStyles.clearText}>

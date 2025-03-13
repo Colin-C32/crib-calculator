@@ -11,6 +11,7 @@ export const colors = {
     white: "#fff",
     grey: "#979797",
     transparentBackground: "rgba(34, 31, 31, 0.73)",
+    semiTransparentBackground: "rgba(34, 31, 31, 0.95)",
     yellow: "#ffe431",
     green: "rgb(100, 230, 88)",
 };

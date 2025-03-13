@@ -64,11 +64,13 @@ export const rankingsStyles = StyleSheet.create({
         marginVertical: 10,
         flexDirection: "row",
         flexWrap: "wrap",
+        columnGap: 15,
     },
     statisticContainer: {
+        display: "flex",
         flexDirection: "row",
-        gap: 5,
-        width: "50%",
+        justifyContent: "space-between",
+        width: "47.5%",
     },
     suitIcon: {
         fontSize: 29,

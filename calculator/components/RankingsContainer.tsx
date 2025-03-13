@@ -34,7 +34,7 @@ export default function RankingsContainer() {
                 rank: undefined,
                 color: undefined,
             })),
-        thrownCards: Array(2)
+        thrownCards: Array(players === 2 ? 2 : 1)
             .fill(null)
             .map(() => ({
                 index: "",

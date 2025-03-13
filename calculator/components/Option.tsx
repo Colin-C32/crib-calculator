@@ -90,7 +90,7 @@ export default function Option(props: OptionProps) {
                     value={props.hand.averageTotalValue}
                 />
                 <Statistic
-                    title="Highest Hand Score"
+                    title="Maximum Hand Score"
                     value={props.hand.highestHandScore}
                 />
                 <Statistic
@@ -98,12 +98,12 @@ export default function Option(props: OptionProps) {
                     value={props.hand.averageHandScore}
                 />
                 <Statistic
-                    title="Average Crib Score"
-                    value={props.hand.averageCribScore}
+                    title="Minimum Hand Score"
+                    value={props.hand.lowestHandScore}
                 />
                 <Statistic
-                    title="Lowest Possible Value"
-                    value={props.hand.lowestHandScore}
+                    title="Average Crib Score"
+                    value={props.hand.averageCribScore}
                 />
             </View>
         </View>

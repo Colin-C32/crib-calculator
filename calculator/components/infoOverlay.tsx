@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { Pressable, View, TouchableOpacity } from "react-native";
+import { Pressable, View, TouchableOpacity, Text } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { infoOverlayStyles } from "@/styles/infoOverlayStyles";
+import { colors } from "@/styles/constants";
 
 export default function InfoOverlay() {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
-    if (isOpen) {
+    if (!isOpen) {
         return (
             <View style={infoOverlayStyles.topContainer}>
-                <Pressable onPress={() => setIsOpen(false)}>
+                <Pressable onPress={() => setIsOpen(true)}>
                     <MaterialCommunityIcons
                         name="help-circle-outline"
                         style={infoOverlayStyles.iconStyle}
@@ -22,15 +23,20 @@ export default function InfoOverlay() {
             <TouchableOpacity
                 style={infoOverlayStyles.fullScreenContainer}
                 activeOpacity={1}
+                onPress={() => setIsOpen(false)}
             >
-                <Pressable onPress={() => setIsOpen(true)}>
-                    <MaterialCommunityIcons
-                        name="close-circle-outline"
-                        style={infoOverlayStyles.iconStyle}
-                    />
-                </Pressable>
+                <View style={infoOverlayStyles.topContainer}>
+                    <Pressable onPress={() => setIsOpen(false)}>
+                        <MaterialCommunityIcons
+                            name="close-circle-outline"
+                            style={infoOverlayStyles.iconStyle}
+                        />
+                    </Pressable>
+                </View>
 
-                <View></View>
+                <View style={infoOverlayStyles.instructionContainer}>
+                    <Text style={infoOverlayStyles.header}>Overview</Text>
+                </View>
             </TouchableOpacity>
         );
     }
