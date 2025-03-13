@@ -228,6 +228,7 @@ function getCribScore(fullHand, hand, rankMap, thrownCards) {
     let minCribScore = 30;
     let totalScore = 0;
     let totalHands = 0;
+    let testMin = 30;
 
     for (const cards of otherThrownCards) {
         let fullCribRankString = cribRankString + cards.join("");
@@ -256,7 +257,7 @@ function getCribScore(fullHand, hand, rankMap, thrownCards) {
                 values[0]
             );
 
-            cribScore += jacksScore;
+            minCribScore = Math.min(cribScore, minCribScore);
 
             let flushScore = getCribFlushScore(
                 thrownCards,
@@ -265,25 +266,20 @@ function getCribScore(fullHand, hand, rankMap, thrownCards) {
                 values[i]
             );
 
-            totalScore += cribScore * multiples;
-            totalScore += flushScore;
-
             if (jacksScore > 0) {
                 maxCribScore = Math.max(
                     1 + cribScore + flushScore,
                     maxCribScore
                 );
-                minCribScore = Math.min(
-                    Math.floor(jacksScore / 4) + cribScore,
-                    minCribScore
-                );
             } else {
                 maxCribScore = Math.max(cribScore + flushScore, maxCribScore);
-                minCribScore = Math.min(cribScore, minCribScore);
             }
+
+            totalScore += cribScore * multiples;
+            totalScore += jacksScore;
+            totalScore += flushScore;
         }
     }
-
     return [totalScore / totalHands, maxCribScore, minCribScore];
 }
 
@@ -395,8 +391,8 @@ export default function digestHandScoring(hand, isUserCrib) {
                 : handScoreData[0] - cribScoreData[0],
             averageHandScore: handScoreData[0],
             averageCribScore: cribScoreData[0],
-            lowestHandScore: handScoreData[2],
             highestHandScore: handScoreData[1],
+            lowestHandScore: handScoreData[2],
         };
 
         if (handData.averageTotalValue >= highestAverageScore) {
@@ -404,13 +400,13 @@ export default function digestHandScoring(hand, isUserCrib) {
             averageScoreData = handData;
         }
 
-        if (handScoreData[1] >= highestPotentialScore) {
+        if (handData.highestHandScore >= highestPotentialScore) {
             potentialScoreData = handData;
-            highestPotentialScore = handScoreData[1];
+            highestPotentialScore = handData.highestHandScore;
         }
-        if (handScoreData[2] >= highestBaseScore) {
+        if (handData.lowestHandScore >= highestBaseScore) {
             baseScoreData = handData;
-            highestBaseScore = handScoreData[2];
+            highestBaseScore = handData.lowestHandScore;
         }
     }
 
