@@ -132,6 +132,7 @@ export default function InputContainer() {
         } else {
             setHand(Array.from({ length: 5 }));
         }
+        setSelectedSpot(0);
     }
 
     return (
