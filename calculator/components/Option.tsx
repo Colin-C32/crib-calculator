@@ -150,11 +150,14 @@ function AddStatistic(props: StatisticProps) {
     return (
         <View style={rankingsStyles.statisticContainer}>
             <Text
-                style={
+                style={[
                     props.isHighlighted
                         ? rankingsStyles.highlightedSubtext
-                        : rankingsStyles.subtext
-                }
+                        : rankingsStyles.subtext,
+                    props.value !== undefined && props.value < 0
+                        ? rankingsStyles.redSubtext
+                        : rankingsStyles.greenSubtext,
+                ]}
             >
                 {props.title}:
             </Text>

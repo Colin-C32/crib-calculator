@@ -1,5 +1,10 @@
 import { StyleSheet } from "react-native";
-import { colors, viewportHeight, viewportWidth } from "@/styles/constants";
+import {
+    colors,
+    viewportHeight,
+    viewportScreenHeight,
+    viewportWidth,
+} from "@/styles/constants";
 
 export const infoOverlayStyles = StyleSheet.create({
     topContainer: {
@@ -14,7 +19,7 @@ export const infoOverlayStyles = StyleSheet.create({
         left: 0,
         top: 0,
         right: 0,
-        height: viewportHeight,
+        height: viewportScreenHeight,
         zIndex: 100,
         backgroundColor: colors.semiTransparentBackground,
         flexDirection: "column",
@@ -23,14 +28,48 @@ export const infoOverlayStyles = StyleSheet.create({
         fontSize: 35,
         color: colors.blue,
     },
-    instructionContainer: {
-        marginTop: viewportHeight * 0.1,
+    overviewContainer: {
+        marginTop: viewportHeight * 0.075,
         paddingHorizontal: viewportWidth * 0.05,
+        width: viewportWidth,
     },
     header: {
-        color: colors.white,
+        color: colors.blue,
         fontSize: 25,
         fontWeight: "700",
         alignSelf: "center",
+    },
+    instructionContainer: {
+        display: "flex",
+        flexDirection: "column",
+        marginTop: viewportHeight * 0.025,
+    },
+    instructionHeader: {
+        color: colors.blue,
+        fontSize: 25,
+        fontWeight: "700",
+        alignSelf: "center",
+    },
+    stepHeader: {
+        color: colors.white,
+        fontWeight: "500",
+        fontSize: 20,
+        marginTop: 5,
+    },
+    selectCardsImage: {
+        alignSelf: "center",
+        width: viewportWidth * 0.7,
+        resizeMode: "contain",
+        marginVertical: -250,
+    },
+    toggleImage: {
+        width: viewportWidth * 0.9,
+        resizeMode: "contain",
+        marginVertical: -30,
+    },
+    explanationText: {
+        color: colors.white,
+        fontSize: 17.5,
+        fontStyle: "italic",
     },
 });

@@ -1,8 +1,13 @@
 import { Dimensions } from "react-native";
 
-const { width, height } = Dimensions.get("window");
-export const viewportWidth = width;
-export const viewportHeight = height;
+const windowDimensions = Dimensions.get("window");
+const screenDimensions = Dimensions.get("screen");
+
+export const viewportWidth = windowDimensions.width;
+export const viewportHeight = windowDimensions.height;
+
+export const viewportScreenWidth = screenDimensions.width;
+export const viewportScreenHeight = screenDimensions.height;
 
 export const colors = {
     blue: "rgb(102, 179, 255)",
