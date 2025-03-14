@@ -114,12 +114,17 @@ type StatisticProps = {
     title: string;
     value?: number;
 };
+
 function Statistic(props: StatisticProps) {
     return (
         <View style={rankingsStyles.statisticContainer}>
             <Text style={rankingsStyles.subtext}>{props.title}:</Text>
             <Text style={[rankingsStyles.subtext, rankingsStyles.valueText]}>
-                {props.value ? props.value.toFixed(2) : "-"}
+                {props.value === 0
+                    ? "0"
+                    : props.value
+                    ? props.value.toFixed(2)
+                    : "-"}
             </Text>
         </View>
     );
