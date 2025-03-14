@@ -228,7 +228,6 @@ function getCribScore(fullHand, hand, rankMap, thrownCards) {
     let minCribScore = 30;
     let totalScore = 0;
     let totalHands = 0;
-    let testMin = 30;
 
     for (const cards of otherThrownCards) {
         let fullCribRankString = cribRankString + cards.join("");
@@ -393,8 +392,12 @@ export default function digestHandScoring(hand, isUserCrib) {
             averageCribScore: isUserCrib
                 ? cribScoreData[0]
                 : cribScoreData[0] * -1,
-            highestHandScore: handScoreData[1],
-            lowestHandScore: handScoreData[2],
+            highestHandScore: isUserCrib
+                ? handScoreData[1] + cribScoreData[0]
+                : handScoreData[1],
+            lowestHandScore: isUserCrib
+                ? handScoreData[2] + cribScoreData[2]
+                : handScoreData[2],
         };
 
         if (handData.averageTotalValue >= highestAverageScore) {

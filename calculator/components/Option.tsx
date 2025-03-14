@@ -103,9 +103,9 @@ export default function Option(props: OptionProps) {
                 )}
 
                 <Statistic
-                    title="Maximum Hand Score"
+                    title="Highest Expected Score"
                     value={props.hand.highestHandScore}
-                    isHighlighted={props.section === "Highest Possible Score"}
+                    isHighlighted={props.section === "Highest Expected Score"}
                 />
 
                 {props.section !== "Optimal Hand" && (
