@@ -27,7 +27,7 @@ export const handCardStyles = StyleSheet.create({
     },
     highlight: {
         borderWidth: 3,
-        borderColor: colors.toggleActive,
+        borderColor: colors.blue,
     },
     emptyCard: {
         fontSize: 40,

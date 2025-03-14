@@ -390,7 +390,9 @@ export default function digestHandScoring(hand, isUserCrib) {
                 ? handScoreData[0] + cribScoreData[0]
                 : handScoreData[0] - cribScoreData[0],
             averageHandScore: handScoreData[0],
-            averageCribScore: cribScoreData[0],
+            averageCribScore: isUserCrib
+                ? cribScoreData[0]
+                : cribScoreData[0] * -1,
             highestHandScore: handScoreData[1],
             lowestHandScore: handScoreData[2],
         };

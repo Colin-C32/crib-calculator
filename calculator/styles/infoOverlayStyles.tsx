@@ -21,7 +21,7 @@ export const infoOverlayStyles = StyleSheet.create({
     },
     iconStyle: {
         fontSize: 35,
-        color: colors.toggleActive,
+        color: colors.blue,
     },
     instructionContainer: {
         marginTop: viewportHeight * 0.1,

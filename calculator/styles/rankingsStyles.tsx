@@ -11,7 +11,7 @@ export const rankingsStyles = StyleSheet.create({
     },
     rankingSectionContainer: {},
     rankingTitle: {
-        color: colors.yellow,
+        color: colors.blue,
         textDecorationLine: "underline",
         fontWeight: "bold",
         fontSize: 20,
@@ -26,7 +26,7 @@ export const rankingsStyles = StyleSheet.create({
         gap: 2,
     },
     text: {
-        color: colors.toggleActive,
+        color: colors.blue,
         fontSize: 15,
         fontWeight: "500",
         marginVertical: 5,
@@ -34,12 +34,24 @@ export const rankingsStyles = StyleSheet.create({
     subtext: {
         color: colors.white,
         fontSize: 12.5,
-        fontWeight: "500",
+        fontWeight: "400",
     },
-    valueText: {
-        color: colors.toggleActive,
+    highlightedSubtext: {
+        color: colors.blue,
         fontSize: 12.5,
         fontWeight: "900",
+    },
+    valueText: {
+        fontSize: 12.5,
+        fontWeight: "500",
+    },
+    redSubtext: {
+        color: colors.red,
+        fontWeight: "500",
+    },
+    greenSubtext: {
+        color: colors.green,
+        fontWeight: "500",
     },
     optionContainer: {
         flexDirection: "column",
@@ -88,7 +100,7 @@ export const rankingsStyles = StyleSheet.create({
     },
     highlight: {
         borderWidth: 3,
-        borderColor: colors.toggleActive,
+        borderColor: colors.blue,
     },
     emptyCard: {
         fontSize: 40,

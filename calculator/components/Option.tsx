@@ -29,6 +29,7 @@ type Hand = {
 
 type OptionProps = {
     hand: Hand;
+    section: string;
 };
 
 export default function Option(props: OptionProps) {
@@ -85,25 +86,53 @@ export default function Option(props: OptionProps) {
                 </View>
             </View>
             <View style={rankingsStyles.statsContainer}>
-                <Statistic
-                    title="Average Total Value"
-                    value={props.hand.averageTotalValue}
-                />
+                {props.section === "Highest Average Score" && (
+                    <AddStatistic
+                        title="Average Hand Score"
+                        value={props.hand.averageHandScore}
+                        isHighlighted={false}
+                    />
+                )}
+
+                {props.section !== "Highest Average Score" && (
+                    <Statistic
+                        title="Average Hand Score"
+                        value={props.hand.averageHandScore}
+                        isHighlighted={false}
+                    />
+                )}
+
                 <Statistic
                     title="Maximum Hand Score"
                     value={props.hand.highestHandScore}
+                    isHighlighted={props.section === "Highest Potential Score"}
                 />
-                <Statistic
-                    title="Average Hand Score"
-                    value={props.hand.averageHandScore}
-                />
+
+                {props.section !== "Highest Average Score" && (
+                    <Statistic
+                        title="Average Crib Score"
+                        value={props.hand.averageCribScore}
+                        isHighlighted={false}
+                    />
+                )}
+
+                {props.section === "Highest Average Score" && (
+                    <AddStatistic
+                        title="Average Crib Score"
+                        value={props.hand.averageCribScore}
+                        isHighlighted={false}
+                    />
+                )}
+
                 <Statistic
                     title="Minimum Hand Score"
                     value={props.hand.lowestHandScore}
+                    isHighlighted={props.section === "Highest Base Score"}
                 />
                 <Statistic
-                    title="Average Crib Score"
-                    value={props.hand.averageCribScore}
+                    title="Average Total Value"
+                    value={props.hand.averageTotalValue}
+                    isHighlighted={props.section === "Highest Average Score"}
                 />
             </View>
         </View>
@@ -113,13 +142,61 @@ export default function Option(props: OptionProps) {
 type StatisticProps = {
     title: string;
     value?: number;
+    color?: string;
+    isHighlighted: boolean;
 };
+
+function AddStatistic(props: StatisticProps) {
+    return (
+        <View style={rankingsStyles.statisticContainer}>
+            <Text
+                style={
+                    props.isHighlighted
+                        ? rankingsStyles.highlightedSubtext
+                        : rankingsStyles.subtext
+                }
+            >
+                {props.title}:
+            </Text>
+            <Text
+                style={[
+                    props.isHighlighted
+                        ? rankingsStyles.highlightedSubtext
+                        : rankingsStyles.subtext,
+                    props.value !== undefined && props.value < 0
+                        ? rankingsStyles.redSubtext
+                        : rankingsStyles.greenSubtext,
+                ]}
+            >
+                {props.value === 0
+                    ? "0"
+                    : props.value
+                    ? `${props.value > 0 ? "+" : ""}${props.value.toFixed(2)}`
+                    : "-"}
+            </Text>
+        </View>
+    );
+}
 
 function Statistic(props: StatisticProps) {
     return (
         <View style={rankingsStyles.statisticContainer}>
-            <Text style={rankingsStyles.subtext}>{props.title}:</Text>
-            <Text style={[rankingsStyles.subtext, rankingsStyles.valueText]}>
+            <Text
+                style={
+                    props.isHighlighted
+                        ? rankingsStyles.highlightedSubtext
+                        : rankingsStyles.subtext
+                }
+            >
+                {props.title}:
+            </Text>
+            <Text
+                style={[
+                    props.isHighlighted
+                        ? rankingsStyles.highlightedSubtext
+                        : rankingsStyles.subtext,
+                ]}
+            >
                 {props.value === 0
                     ? "0"
                     : props.value

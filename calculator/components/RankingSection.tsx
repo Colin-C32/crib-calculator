@@ -30,7 +30,7 @@ export default function RankingSection(props: Props) {
         <View style={rankingsStyles.rankingSectionContainer}>
             <Text style={rankingsStyles.rankingTitle}>{props.title}</Text>
             <ScrollView>
-                <Option hand={props.hand} />
+                <Option hand={props.hand} section={props.title} />
             </ScrollView>
         </View>
     );
