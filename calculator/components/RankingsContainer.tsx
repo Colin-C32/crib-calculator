@@ -151,10 +151,7 @@ export default function RankingsContainer() {
 
     return (
         <View style={rankingsStyles.rankingsContainer}>
-            <RankingSection
-                title={"Highest Average Score"}
-                hand={highestAverageHand}
-            />
+            <RankingSection title={"Optimal Hand"} hand={highestAverageHand} />
             <RankingSection
                 title={"Highest Potential Score"}
                 hand={highestPotentialHand}

@@ -86,7 +86,7 @@ export default function Option(props: OptionProps) {
                 </View>
             </View>
             <View style={rankingsStyles.statsContainer}>
-                {props.section === "Highest Average Score" && (
+                {props.section === "Optimal Hand" && (
                     <AddStatistic
                         title="Average Hand Score"
                         value={props.hand.averageHandScore}
@@ -94,7 +94,7 @@ export default function Option(props: OptionProps) {
                     />
                 )}
 
-                {props.section !== "Highest Average Score" && (
+                {props.section !== "Optimal Hand" && (
                     <Statistic
                         title="Average Hand Score"
                         value={props.hand.averageHandScore}
@@ -108,7 +108,7 @@ export default function Option(props: OptionProps) {
                     isHighlighted={props.section === "Highest Potential Score"}
                 />
 
-                {props.section !== "Highest Average Score" && (
+                {props.section !== "Optimal Hand" && (
                     <Statistic
                         title="Average Crib Score"
                         value={props.hand.averageCribScore}
@@ -116,7 +116,7 @@ export default function Option(props: OptionProps) {
                     />
                 )}
 
-                {props.section === "Highest Average Score" && (
+                {props.section === "Optimal Hand" && (
                     <AddStatistic
                         title="Average Crib Score"
                         value={props.hand.averageCribScore}
@@ -132,7 +132,7 @@ export default function Option(props: OptionProps) {
                 <Statistic
                     title="Average Total Value"
                     value={props.hand.averageTotalValue}
-                    isHighlighted={props.section === "Highest Average Score"}
+                    isHighlighted={props.section === "Optimal Hand"}
                 />
             </View>
         </View>
