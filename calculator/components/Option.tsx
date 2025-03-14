@@ -1,12 +1,6 @@
-import React, { useEffect } from "react";
-import {
-    View,
-    Text,
-    Pressable,
-    Modal,
-    FlatList,
-    TouchableOpacity,
-} from "react-native";
+import React from "react";
+import { View, Text, Pressable } from "react-native";
+import { useHandContext } from "@/hooks/handContext";
 import { rankingsStyles } from "@/styles/rankingsStyles";
 import RankingCard from "./RankingCard";
 
@@ -147,6 +141,7 @@ type StatisticProps = {
 };
 
 function AddStatistic(props: StatisticProps) {
+    const { isMyCrib } = useHandContext();
     return (
         <View style={rankingsStyles.statisticContainer}>
             <Text
@@ -154,7 +149,7 @@ function AddStatistic(props: StatisticProps) {
                     props.isHighlighted
                         ? rankingsStyles.highlightedSubtext
                         : rankingsStyles.subtext,
-                    props.value !== undefined && props.value < 0
+                    !isMyCrib && props.title === "Average Crib Score"
                         ? rankingsStyles.redSubtext
                         : rankingsStyles.greenSubtext,
                 ]}
@@ -166,7 +161,7 @@ function AddStatistic(props: StatisticProps) {
                     props.isHighlighted
                         ? rankingsStyles.highlightedSubtext
                         : rankingsStyles.subtext,
-                    props.value !== undefined && props.value < 0
+                    !isMyCrib && props.title === "Average Crib Score"
                         ? rankingsStyles.redSubtext
                         : rankingsStyles.greenSubtext,
                 ]}
