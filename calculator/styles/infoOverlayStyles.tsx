@@ -42,7 +42,7 @@ export const infoOverlayStyles = StyleSheet.create({
     instructionContainer: {
         display: "flex",
         flexDirection: "column",
-        marginTop: viewportHeight * 0.025,
+        marginTop: viewportHeight * 0.005,
     },
     instructionHeader: {
         color: colors.blue,

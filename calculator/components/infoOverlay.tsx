@@ -40,8 +40,8 @@ export default function InfoOverlay() {
                             New to cribbage? This calculator helps you make the
                             best card choices by analyzing your hand, the crib,
                             and the number of players — whether you're aiming
-                            for the highest score, guaranteeing a minimum score,
-                            or the best average outcome.
+                            for the highest possible score, guaranteeing a
+                            minimum score, or the best average outcome.
                         </Text>
                     </View>
                     <View style={infoOverlayStyles.instructionContainer}>
@@ -52,8 +52,8 @@ export default function InfoOverlay() {
                             1) Select Cards
                         </Text>
                         <Text style={infoOverlayStyles.explanationText}>
-                            Click on any of the bottoms cards and select which
-                            cards are in your hand.
+                            Click on any of the bottom cards and select which
+                            cards are in your hand from the popup.
                         </Text>
                         <Image
                             source={require("@/assets/images/SelectCribCards.png")}
@@ -75,8 +75,8 @@ export default function InfoOverlay() {
                         </Text>
                         <Text style={infoOverlayStyles.explanationText}>
                             Decide whether you want to pick the best hand on
-                            average, hand with the highest score, or the hand
-                            that has the highest base score.
+                            average, hand with the highest possible score, or
+                            the hand that has the highest base score.
                         </Text>
                     </View>
                 </View>
