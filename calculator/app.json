@@ -1,7 +1,7 @@
 {
     "expo": {
-        "name": "calculator",
-        "slug": "calculator",
+        "name": "Crib Calculator",
+        "slug": "Crib Calculator",
         "version": "1.0.0",
         "orientation": "portrait",
         "icon": "./assets/images/crib_app_icon.png",
