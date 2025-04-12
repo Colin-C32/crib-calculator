@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "crib-calculator-project",
+  "private_key_id": "dca1f9fa70fd167ef14ac763eb5cd71c9730df57",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC2NNTgcydd86o3\nT8vrrOKeRE0pltgl3Dc7+6CxDMWXYR3+IqQdgEVGfx7VyFI9HYfwTa26YoDIiV1k\nk5M0M0kgNMMFNGVgmNkC0O8FaULBuGn6+an64scGEa37f7zvpg3xpLtVb6mR64b1\nRLgBdXYcdnSNtftKicAFQDWoLlRmfw8b4dSFfQ2owkuqS92WehxWeX7wlqmd/6jz\ncn3akUywOJizWh3JOs1TxrWf5pSSlh2V93osrXs/Ima6cRHxXwjnIemGlurcnWZS\nzWnkR2t/DeM6lpTuxJcri+FmePHhrctj2OdYOECkTZbhXk7BYw9+/x4GgkpfXgG5\nLpBmxDrRAgMBAAECggEACkIG7pR5FchhL8A/sybecsnWXMYr6NTBLNC1qyYUjTlX\n3I4DdpA5Rjbjq+Y9YAi0taYP5u+C/9dA8WfACLcu8Z/az2UT5IhyZj7QSBoVGq4o\n1EsAQ3pHOWufI4q9XrIW9KDhNZYF4kvT4yTRZa6g3cka9nv1d+yxqXIEG1HxaTw7\nTpYjmIs39HMLPDOh+sq3EWMZCddLN2zho98mhTw5DF54U82lpYsYEjQdO2gW/FKB\nQxAlFzbaSDkLMIsIXGsg80dC3AOpwejiIRhEtwXLFuvp1QdHotopnhsDnQTu7/om\nTrUlbpvj2OqLeWh6StEvwV63enTOH43mPKECKjg1AQKBgQDwavcEcnjtEAVIMPbp\nzFvMFLr5fhlWprnz2BthK/VW2bVlHfqRAVgNhabAj/JOCJznMkVsydwfN4zvVY9a\nEZxGZSF0lsvMU50So6yn/UeuI+Qo6Xwv9GHbMF2DITHj+yjFtL1gVtDX7/MoyedD\nZck6+4eXXvPTkW3QnCAjuldYUQKBgQDCBARFzBEX8CLLns7oXSEJsfPHSbiMPFQO\nge4UyfbXjeJAlSh/VUpbdKRCWrgIK0hdYxYRJHr+jBEdQjEXW7CFXq3w95AW7IXB\n/0GFDwG+d/uqWGFwzrj6+vj2VxI9KmoL/8lkseKaVgQkQNah8YX2yQI51+ftzHQf\nR6iF06CagQKBgQDZL4gfGFptrf9XjARCiT6USlXudR/my49I3X0+dzuXTe00f7SP\nsisdbBOL+X3nSJiVszBMar7T5JcIzr5Fm4sVfN6QOHm7B/3pjLq4t3I9umavHt31\nZEvSewq/Hwm27nmSwQgjM8pOiJGd02d710PGaNvAvyJ9ie8ueRv/qqKlQQKBgQCc\ntvPgkSJpjJ3+jauhw7/w/d3k5uZ72CspgMgX4L9ThBbyhckteW5Ti1c3BeJLLvMI\nBAaKGEaFIAye7p2KuZRPVpf34XBxI+IzPoTk/qcw++e7xCIJJeIDUQASs2hXIdCB\nGr7JaGqascosonb8XoQQQHNc18pOqexOa+pzFutOgQKBgQDRGmQwyHbRmIsc/qoA\nr6VLCAG5VFBWfXw88nN8oPjy0vJY/kwMox4MqoZa1aKYa/FsaW7pdJN3DEzy8oQC\nua/Kpgpd26ljjuDOF0fcC0IiZKBeGZ5T3djcLXzgao5Uiuu8vc2NZV74Lz5Utlho\nV4zChYZX1PdaaEqOvgkzcjaD7g==\n-----END PRIVATE KEY-----\n",
+  "client_email": "colin-15@crib-calculator-project.iam.gserviceaccount.com",
+  "client_id": "104985778071850442902",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/colin-15%40crib-calculator-project.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
