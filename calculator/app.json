@@ -1,7 +1,7 @@
 {
     "expo": {
         "name": "Crib Calculator",
-        "slug": "Crib Calculator",
+        "slug": "calculator",
         "version": "1.0.0",
         "orientation": "portrait",
         "icon": "./assets/images/crib_app_icon.png",
@@ -13,7 +13,7 @@
         },
         "android": {
             "adaptiveIcon": {
-                "foregroundImage": "./assets/images/adaptive-icon.png",
+                "foregroundImage": "./assets/images/crib_app_icon.png",
                 "backgroundColor": "#ffffff"
             },
             "package": "colins.cribcalculator"
@@ -28,7 +28,7 @@
             [
                 "expo-splash-screen",
                 {
-                    "image": "./assets/images/splash-icon.png",
+                    "image": "./assets/images/crib_app_icon.png",
                     "imageWidth": 200,
                     "resizeMode": "contain",
                     "backgroundColor": "#ffffff"
